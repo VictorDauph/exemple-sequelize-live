@@ -1,4 +1,5 @@
 import sequelize from "../config/database";
+import Profil from "./profil.model";
 import Utilisateur from "./Utilisateur.model";
 
 const syncDatabase = async () => {
@@ -12,4 +13,4 @@ const syncDatabase = async () => {
     }
 };
 
-export { syncDatabase, Utilisateur };
+export { syncDatabase, Utilisateur, Profil };

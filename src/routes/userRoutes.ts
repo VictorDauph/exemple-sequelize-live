@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, deleteUser, getAllUsers, modifyUser } from "../controllers/userController";
+import { createUser, deleteUser, getAllUsers, modifyUser, searchUsers } from "../controllers/userController";
 
 
 const router = express.Router();
@@ -175,5 +175,53 @@ router.put("/:id", modifyUser);
  *         description: Erreur serveur
  */
 router.delete('/:id', deleteUser);
+
+/**
+* @swagger
+* /users/searchUsers:
+*   get:
+*     summary: Recherche avancée d'utilisateurs
+*     description: Recherche un utilisateur en fonction du nom, de l'email et de la date de création.
+*     tags:
+*       - Utilisateurs
+*     parameters:
+*       - in: query
+*         name: nom
+*         schema:
+*           type: string
+*         description: Nom de l'utilisateur (recherche partielle insensible à la casse).
+*       - in: query
+*         name: email
+*         schema:
+*           type: string
+*         description: Email de l'utilisateur (recherche partielle insensible à la casse).
+*     responses:
+*       200:
+*         description: Liste des utilisateurs correspondant aux critères
+*         content:
+*           application/json:
+*             schema:
+*               type: array
+*               items:
+*                 type: object
+*                 properties:
+*                   id:
+*                     type: integer
+*                     example: 1
+*                   nom:
+*                     type: string
+*                     example: "Dupont"
+*                   email:
+*                     type: string
+*                     format: email
+*                     example: "dupont@example.com"
+*                   createdAt:
+*                     type: string
+*                     format: date-time
+*                     example: "2024-02-15T10:30:00.000Z"
+*       500:
+*         description: Erreur serveur
+*/
+router.get('/searchUsers', searchUsers)
 
 export default router;
